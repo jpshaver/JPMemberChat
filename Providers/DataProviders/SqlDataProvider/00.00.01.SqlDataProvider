@@ -1,0 +1,143 @@
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}JPMemberChat_Chat]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}JPMemberChat_Chat]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}JPMemberChat_ChatMessage]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}JPMemberChat_ChatMessage]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}JPMemberChat_ChatMember]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}JPMemberChat_ChatMember]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}JPMemberChat_ConnectionRecord]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}JPMemberChat_ConnectionRecord]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}JPMemberChat_Status]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}JPMemberChat_Status]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}JPMemberChat_MemberStatus]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}JPMemberChat_MemberStatus]
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+CREATE TABLE {databaseOwner}[{objectQualifier}JPMemberChat_Chat]
+(
+	[ChatId] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[CreatedOnDateTime] [datetime] NOT NULL,
+	[ClosedOnDateTime] [datetime] NULL,
+ CONSTRAINT [PK_JPMemberChat_Chat] PRIMARY KEY CLUSTERED 
+(
+	[ChatId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+
+CREATE TABLE {databaseOwner}[{objectQualifier}JPMemberChat_ChatMessage]
+(
+	[MessageId] [int] IDENTITY(1,1) NOT NULL,
+	[ChatId] [int] NOT NULL,
+	[Message] [nvarchar](max) NOT NULL,
+	[SentMemberId] [int] NOT NULL,
+	[SentDateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_JPMemberChat_ChatMessage] PRIMARY KEY CLUSTERED 
+(
+	[MessageId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+CREATE TABLE {databaseOwner}[{objectQualifier}JPMemberChat_ChatMember]
+(
+	[ChatMemberId] [int] IDENTITY(1,1) NOT NULL,
+	[ChatId] [int] NOT NULL,
+	[MemberId] [int] NOT NULL,
+ CONSTRAINT [PK_ChatMember] PRIMARY KEY CLUSTERED 
+(
+	[ChatMemberId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+CREATE TABLE {databaseOwner}[{objectQualifier}JPMemberChat_ConnectionRecord]
+(
+	[RecordId] [int] IDENTITY(1,1) NOT NULL,
+	[ConnectionId] [nvarchar](max) NOT NULL,
+	[UserName] [nvarchar](200) NOT NULL,
+	[UserId] [int] NOT NULL,
+ CONSTRAINT [PK_ConnectionRecord] PRIMARY KEY CLUSTERED 
+(
+	[RecordId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+
+CREATE TABLE {databaseOwner}[{objectQualifier}JPMemberChat_Status]
+(
+	[StatusId] [int] IDENTITY(1,1) NOT NULL,
+	[Type] [nvarchar](50) NOT NULL,
+	[Archived] [bit] NULL,
+ CONSTRAINT [PK_JPMemberChat_Status] PRIMARY KEY CLUSTERED 
+(
+	[StatusId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+CREATE TABLE {databaseOwner}[{objectQualifier}JPMemberChat_MemberStatus]
+(
+	[MemberStatusId] [int] IDENTITY(1,1) NOT NULL,
+	[MemberId] [int] NOT NULL,
+	[StatusId] [int] NOT NULL,
+ CONSTRAINT [PK_JPMemberChat_MemberStatus] PRIMARY KEY CLUSTERED 
+(
+	[MemberStatusId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+INSERT INTO {databaseOwner}[{objectQualifier}JPMemberChat_Status](Type, Archived)
+VALUES('Online',0), ('Offline',0), ('Busy',0)
+GO
+
+
+IF NOT EXISTS ( SELECT * FROM {databaseOwner}[{objectQualifier}hostsettings] WHERE SettingName = 'AUM_DoNotRewriteRegEx' )
+BEGIN
+INSERT INTO {databaseOwner}[{objectQualifier}hostsettings]
+(SettingName, SettingValue, SettingIsSecure, CreatedByUserId, CreatedOnDate, LastModifiedByUserId, LastModifiedOnDate)
+VALUES('AUM_DoNotRewriteRegEx','/DesktopModules/|/Providers|/LinkClick\.aspx|/SignalR', 0, -1, GETDATE(), -1, GETDATE())
+END
+GO
+
+
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

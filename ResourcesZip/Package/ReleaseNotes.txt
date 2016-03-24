@@ -1,0 +1,16 @@
+﻿<h3>Member Chat</h3>
+<p class="Contributor">
+	jpshaver.com <br />
+	<a href="mailto:jpshaver@hotmail.com">jpshaver@hotmail.com</a><br />
+</p>
+<hr/>
+<div class="License">
+	<h3>Member Chat</h3>
+	<p class="Owner">
+		<b>Version 00.00.03</b><br /><br />
+	</p>
+	<p>Instant Messaging Member Chat Module.</p>
+	<p>Bug Fix</p>
+	<p>Fixed object refrence error when the site has no page named 'Activity Feed'</p>
+	
+</div>

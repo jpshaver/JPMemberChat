@@ -1,0 +1,27 @@
+﻿IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}JPMemberChat_Chat]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}JPMemberChat_Chat]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}JPMemberChat_ChatMessage]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}JPMemberChat_ChatMessage]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}JPMemberChat_ChatMember]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}JPMemberChat_ChatMember]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}JPMemberChat_ConnectionRecord]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}JPMemberChat_ConnectionRecord]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}JPMemberChat_Status]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}JPMemberChat_Status]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}JPMemberChat_MemberStatus]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}JPMemberChat_MemberStatus]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}JPMemberChat_Block]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}JPMemberChat_Block]
+GO

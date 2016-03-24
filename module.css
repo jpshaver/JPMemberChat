@@ -1,0 +1,70 @@
+
+#tblMembers td {    
+    padding:0px;
+}
+
+#tblMembers img {
+    height: 30px;
+    width: 30px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #fff;
+    border: 1px #ccc solid;
+    padding: 4px;
+}
+
+.txt-value {
+    font-weight: bold;
+}
+
+.dialog-textbox {
+    width: 215px;
+    float: left;
+    margin-right: 8px;
+}
+
+#dialog-img {
+    width: 20px;
+    height: auto;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #fff;
+    border: 1px #ccc solid;
+    padding: 4px;
+}
+
+#discussion {
+    list-style: none;
+    margin-left: 0;
+}
+
+    #discussion li {
+        margin-top: 3px;
+    }
+
+
+#dialog-span-typing {
+    margin-left: 5px;
+    font-size: xx-small;
+    display: none;
+    vertical-align: top;
+}
+
+.ui-dialog-buttonset {
+    float: right;
+}
+
+.ui-dialog-buttonpane input[type="text"] {
+    margin-bottom: 0px !Important;
+    margin-top: 5px;
+}
+
+.dnnFormPopup .ui-dialog-buttonpane {
+    margin: 0;
+}
+
+.button-status {
+    margin-bottom: 5px;
+}
